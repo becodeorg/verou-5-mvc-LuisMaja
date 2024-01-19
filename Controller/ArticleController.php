@@ -15,13 +15,17 @@ class ArticleController
 
     // Note: this function can also be used in a repository - the choice is yours
     private function getArticles()
-    {
+{
+    try {
         // TODO: prepare the database connection
         $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
         $databaseManager->connect();
-        // Note: you might want to use a re-usable databaseManager class - the choice is yours
+
         // TODO: fetch all articles as $rawArticles (as a simple array)
-        $rawArticles = [];
+        $query = 'SELECT title, description, publish_date FROM articles';
+        $statement = $databaseManager->connection->query($query);
+
+        $rawArticles = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $articles = [];
         foreach ($rawArticles as $rawArticle) {
@@ -30,7 +34,11 @@ class ArticleController
         }
 
         return $articles;
+    } catch (PDOException $error) {
+        echo 'Error: ' . $error->getMessage();
+        return [];
     }
+}
 
     public function show()
     {
