@@ -22,8 +22,9 @@ class ArticleController
         $databaseManager->connect();
 
         // TODO: fetch all articles as $rawArticles (as a simple array)
-        $query = 'SELECT title, description, publish_date FROM articles';
-        $statement = $databaseManager->connection->query($query);
+        $query = 'SELECT * FROM articles';
+        $statement = $this->$databaseManager->connection->prepare($query);
+        $statement = execute();
 
         $rawArticles = $statement->fetchAll(PDO::FETCH_ASSOC);
 
