@@ -1,4 +1,7 @@
-<?php require './includes/header.php'?>
+<?php 
+
+declare(strict_types=1);
+require './includes/header.php'?>
 
 
 <?php // Use any data loaded in the controller here ?>

@@ -4,6 +4,13 @@ declare(strict_types = 1);
 
 class ArticleController
 {
+    private DatabaseManager $databaseManager;
+
+    public function __construct(DatabaseManager $databaseManager)
+    {
+        $this->databaseManager = $databaseManager;
+    }
+
     public function index()
     {
         // Load all required data
@@ -18,7 +25,6 @@ class ArticleController
 {
     try {
         // TODO: prepare the database connection
-        $databaseManager = new DatabaseManager($config['host'], $config['user'], $config['password'], $config['dbname']);
         $databaseManager->connect();
 
         // TODO: fetch all articles as $rawArticles (as a simple array)
